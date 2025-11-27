@@ -1,0 +1,15 @@
+package com.io;
+
+import java.io.IOException;
+
+public class FileManger {
+    public static String readFile(String path) throws IOException{
+        
+        // not finished
+    }
+
+    public static void writeFile(String path, String content) throws IOException{
+        
+        // not finished
+    }
+}
