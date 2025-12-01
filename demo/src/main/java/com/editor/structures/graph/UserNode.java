@@ -14,6 +14,9 @@ public class UserNode {
     public void addPost(Post post) {
         this.posts.add(post);
     }
+    public void addFollower(int followerId){
+        this.followerIds.add(followerId);
+    }
 
     public void addFollower(int followerId){}
     // add getters and setters 
