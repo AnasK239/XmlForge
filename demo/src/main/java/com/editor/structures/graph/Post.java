@@ -8,6 +8,10 @@ public class Post {
     private List<String> topics;
 
     // add getters
-    boolean containsWord(String word){}
-    boolean containsTopic(String topic){}
+    boolean containsWord(String word){
+        return text.contains(word);
+    }
+    boolean containsTopic(String topic){
+        return topics.contains(topic);
+    }
 }
