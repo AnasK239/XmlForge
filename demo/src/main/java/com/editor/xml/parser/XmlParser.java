@@ -8,10 +8,11 @@ public class XmlParser {
     public XmlDocument parse(String xml)
     {
         XmlTokenizer tokenizer = new XmlTokenizer(xml);
-        XmlDocument doc = new XmlDocument();
+//        XmlDocument doc = new XmlDocument();
         // Parsing logic to build XmlDocument from tokens
         //Use a stack (allowed DS) to push open tags; when encountering closing tag, pop & attach as child.
-        return doc;
+//        return doc;
+        return null;
     }
     private XmlNode parseNode()
     {

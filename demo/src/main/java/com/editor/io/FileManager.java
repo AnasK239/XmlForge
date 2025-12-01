@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class FileManager {
     public static String readFile(String path) throws IOException{
-        
+        return null;
         // not finished
     }
 
