@@ -4,14 +4,20 @@ import com.editor.io.CommandLineOptions;
 
 public class CliRunner {
     public static void run(String[] args) {
-        // Implement CLI handling logic here
         System.out.println("Running in CLI mode with arguments:");
-        for (String arg : args) {
-            System.out.println(arg);
+
+        CommandLineOptions Options = CommandLineOptions.parse(args);
+
+        if(Options.getCommand() == "mini"){
+            String filepath = Options.getInputPath();
+            // Read the input XML File from its path.
+            // Convert to XMLDOCUMENT
+            // Call .toStringFormatted("mini") on the document
+            String outputpath = Options.getOutputPath();
+            // Save the output file
         }
 
-        // CommandLineOptions.parse(args); from IO
-        // verfiy options and execute corresponding actions
+        // verfiy the other options and execute corresponding actions
         // format output to console or files as needed
     }
     private static void runVerify(CommandLineOptions options) {
