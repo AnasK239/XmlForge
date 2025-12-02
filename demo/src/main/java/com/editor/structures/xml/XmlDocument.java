@@ -23,5 +23,6 @@ public class XmlDocument {
             // Minifiy's the entire XML DOCUMENT
             return XmlMinifier.toMinifiedString(root);
         }
+        return null;
     }
 }
