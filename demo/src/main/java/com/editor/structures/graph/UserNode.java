@@ -1,5 +1,6 @@
 package com.editor.structures.graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserNode {
@@ -42,7 +43,5 @@ public class UserNode {
     public void addFollower(int followerId){
         this.followerIds.add(followerId);
     }
-
-    public void addFollower(int followerId){}
     // add getters and setters 
 }
