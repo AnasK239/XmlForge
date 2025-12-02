@@ -1,0 +1,115 @@
+/* ===== GLOBAL ROOT (LIGHT THEME) ===== */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", "Sans-serif";
+    -fx-background-color: #f5f5f7;
+    -fx-text-fill: #333333;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+    -fx-background-color: linear-gradient(to right, #ffffff, #f3f6ff);
+    -fx-border-color: #d0d4e0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* ===== SECTION TITLES (Input / Output) ===== */
+.section-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3a4a7a;
+}
+
+/* ===== TEXT AREAS ===== */
+.text-area {
+    -fx-control-inner-background: #ffffff;
+    -fx-text-fill: #222222;
+    -fx-highlight-fill: #4b8bff;
+    -fx-highlight-text-fill: #ffffff;
+    -fx-border-color: #ced4e5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+/* ===== BUTTON BAR ===== */
+.button-bar {
+    -fx-background-color: #f0f2f6;
+    -fx-border-color: #d0d4e0;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* Base button style */
+.btn {
+    -fx-background-radius: 4;
+    -fx-padding: 6 14;
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0, 0, 1);
+}
+
+/* Neutral / secondary */
+.btn-secondary {
+    -fx-background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #5b656d;
+}
+
+/* Primary (important ops, e.g. Verify & Fix) */
+.btn-primary {
+    -fx-background-color: #3f51b5;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #35449a;
+}
+
+/* Accent (To JSON, etc.) */
+.btn-accent {
+    -fx-background-color: #00a6ff;
+}
+
+.btn-accent:hover {
+    -fx-background-color: #008fda;
+}
+
+/* Success (Save Output) */
+.btn-success {
+    -fx-background-color: #15a362;
+}
+
+.btn-success:hover {
+    -fx-background-color: #118753;
+}
+
+/* Warning (Clear) */
+.btn-warning {
+    -fx-background-color: #ff9800;
+}
+
+.btn-warning:hover {
+    -fx-background-color: #e68900;
+}
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d4e0;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ===== TEXT FIELD ===== */
+.text-field {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: #c5c9d8;
+    -fx-background-color: #ffffff;
+}
+
+.text-field:focused {
+    -fx-border-color: #3f51b5;
+    -fx-effect: dropshadow(gaussian, rgba(63,81,181,0.35), 6, 0, 0, 0);
+}
