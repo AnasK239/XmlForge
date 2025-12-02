@@ -18,7 +18,11 @@ public class Graph {
 
     public void addEdge(int fromUserId, int toUserId){}
 
-    public List<Integer> getNeighbors(int userId){return null;}
+    public List<Integer> getNeighbors(int userId){
+        return null;
+    }
 
-    public int getDegree(int userId) {return 0;}// for activity
+    public int getDegree(int userId) {
+        return 0;
+    }// for activity
 }

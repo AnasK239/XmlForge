@@ -26,6 +26,10 @@ public class Post {
     }
 
     // add getters
-    boolean containsWord(String word){}
-    boolean containsTopic(String topic){}
+    boolean containsWord(String word){
+        return text.contains(word);
+    }
+    boolean containsTopic(String topic){
+        return topics.contains(topic);
+    }
 }

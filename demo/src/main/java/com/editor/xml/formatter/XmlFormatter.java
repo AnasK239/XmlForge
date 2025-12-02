@@ -9,7 +9,7 @@ public class XmlFormatter {
         // Dummy implementation for demonstration purposes
         // In a real implementation, you would parse the XML and reformat it with proper indentation.
          // Returning as-is for this dummy implementation.
-        return null;
+        return "";
     }
 
     public String format(String xml)
