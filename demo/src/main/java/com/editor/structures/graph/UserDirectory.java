@@ -12,6 +12,7 @@ public class UserDirectory {
 
     public UserNode getById(int id)
     {
+        return null;
         // linear search or binary search if kept sorted.
     }
     public UserNode[] getAllUsers()

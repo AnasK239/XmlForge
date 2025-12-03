@@ -1,22 +1,108 @@
 package com.editor.util;
 
+import java.util.Stack;
+
 public class JsonBuilder {
-    //Small helper to build JSON text manually (since we may avoid external libs).
+    private final StringBuilder sb = new StringBuilder();
+    private final Stack<Character> context = new Stack<>();
+    private boolean needComma = false;
+    private int indentLevel = 0;
+    private final int indentStep = 4;
 
-    public JsonBuilder beginObject()
+    private void appendIndent() {
+        for (int i = 0; i < indentLevel * indentStep; i++) {
+            sb.append(' ');
+        }
+    }
 
-    public JsonBuilder endObject()
+    private void ifNeedComma() {
+        if (needComma) {
+            sb.append(",");
+        }
+    }
 
-    public JsonBuilder beginArray()
+    public JsonBuilder fieldName(String name) {
+        ifNeedComma();
+        sb.append('\n');
+        appendIndent();
+        sb.append('"').append(name).append('"').append(" : ");
+        needComma = false;
+        return this;
+    }
 
-    public JsonBuilder endArray()
+    public JsonBuilder beginObject() {
+        ifNeedComma();
+        sb.append('\n');
+        appendIndent();
+        sb.append("{");
+        context.push('}');
+        indentLevel++;
+        needComma = false;
+        return this;
+    }
 
-    public JsonBuilder field(String name, String value)
+    public JsonBuilder endObject() {
+        if (!context.isEmpty() && context.peek() == '}') {
+            context.pop();
+            indentLevel--;
+            sb.append('\n');
+            appendIndent();
+            sb.append('}');
+            needComma = true;
+        } else {
+            System.out.println("Error in end object");
+        }
+        return this;
+    }
 
-    public JsonBuilder field(String name, Number value)
+    public JsonBuilder beginArray() {
+        ifNeedComma();
+        sb.append('\n');
+        appendIndent();
+        sb.append("[");
+        context.push(']');
+        indentLevel++;
+        needComma = false;
+        return this;
+    }
 
-    public JsonBuilder field(String name, boolean value)
+    public JsonBuilder endArray() {
+        if (!context.isEmpty() && context.peek() == ']') {
+            context.pop();
+            indentLevel--;
+            sb.append('\n');
+            appendIndent();
+            sb.append(']');
+            needComma = true;
+        } else {
+            System.out.println("Error array isn't closed");
+        }
+        return this;
+    }
 
-    public String build()
+    public JsonBuilder field(String name, String value) {
+        ifNeedComma();
+        sb.append('\n');
+        appendIndent();
+        sb.append('"').append(name).append('"').append(" : ").append('"').append(value).append('"');
+        needComma = true;
+        return this;
+    }
 
+    public JsonBuilder field(String name, int value) {
+        ifNeedComma();
+        sb.append('\n');
+        appendIndent();
+        sb.append('"').append(name).append('"').append(" : ").append(value);
+        needComma = true;
+        return this;
+    }
+
+    public String build() {
+        if (!context.isEmpty()) {
+            System.out.println("Error in build -> stack isn't empty");
+            return null;
+        }
+        return sb.toString();
+    }
 }
