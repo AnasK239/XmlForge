@@ -76,7 +76,7 @@ public class XmlTojsonTest {
         followers.addChild(follower2);
 
         user.addChild(followers);
-
+//test
         XmlDocument doc = new XmlDocument(user);
         System.out.println(new XmlToJson().toJson(doc));
 
