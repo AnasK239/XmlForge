@@ -1,5 +1,6 @@
 package com.editor.structures.xml;
 
+
 public class XmlAttribute {
     private String name;
     private String value;
@@ -14,5 +15,8 @@ public class XmlAttribute {
     public String getValue() {
         return value;
     }
-    
+    @Override
+    public String toString() {
+        return name + "=" + value;
+    }
 }
