@@ -8,6 +8,7 @@ import com.editor.xml.formatter.XmlMinifier;
 import com.editor.xml.formatter.XmlFormatter;
 import com.editor.xml.converter.XmlToJson;
 import com.editor.xml.parser.ValidationResult;
+import com.editor.xml.parser.XmlParser;
 
 /**
  * Handles CLI execution for commands like verify, minify, format, json, etc.
@@ -144,7 +145,7 @@ public class CliRunner {
     private static void runJson(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
-            XmlDocument doc = new XmlDocument(xml);
+            XmlDocument doc = new XmlParser().parse(xml);
             XmlToJson converter = new XmlToJson();
             String json = converter.toJson(doc);
             FileManager.writeFile(opt.getOutputPath(), json);
