@@ -9,13 +9,13 @@ public class XmlValidator {
         ValidationResult result = new ValidationResult();
         // Dummy implementation for demonstration purposes
         if (xml == null || xml.isEmpty()) {
-            result.isValid = false;
-            result.errorCount = 1;
-            result.errorLines = List.of(1);
+            result.setValid(false);
+            result.setErrorCount(1);
+            result.setErrorLines(List.of(1));
         } else {
-            result.isValid = true;
-            result.errorCount = 0;
-            result.errorLines = List.of();
+            result.setValid(true);
+            result.setErrorCount(0);
+            result.setErrorLines(List.of());
         }
         return result;
     }
@@ -27,10 +27,4 @@ public class XmlValidator {
         }
         return xml;
     }
-}
-
-class ValidationResult {
-    boolean isValid;
-    int errorCount;
-    List<Integer> errorLines;
 }
