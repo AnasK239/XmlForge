@@ -4,7 +4,6 @@ import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
 import com.editor.util.JsonBuilder;
 
-import java.util.Vector;
 
 public class XmlToJson {
 
@@ -13,7 +12,7 @@ public class XmlToJson {
         jsonBuilder.beginObject();
         nodeToJson(doc.getRoot(), jsonBuilder);
         jsonBuilder.endObject();
-        return jsonBuilder.build();
+        return jsonBuilder.build().trim();
     }
     private void nodeToJson(XmlNode node, JsonBuilder jsonBuilder) {
         if (node.getName() != null

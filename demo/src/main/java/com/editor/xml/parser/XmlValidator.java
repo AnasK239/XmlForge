@@ -2,7 +2,6 @@ package com.editor.xml.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class XmlValidator {
 
     public ValidationResult validate(String xml) {
@@ -16,21 +15,21 @@ public class XmlValidator {
         List<Integer> errorLines = parser.getErrorLineNumbers();
 
         if (errors.isEmpty()) {
-            result.isValid = true;
-            result.errorCount = 0;
-            result.errorLines = new ArrayList<>();
-            result.errorMessages = new ArrayList<>();
+            result.setValid(true);
+            result.setErrorCount(0);
+            result.setErrorLines(new ArrayList<>());
+            result.setErrorMessages(new ArrayList<>());
             System.out.println("XML is valid.");
         } else {
-            result.isValid = false;
-            result.errorCount = errors.size();
-            result.errorLines = new ArrayList<>(errorLines);
-            result.errorMessages = new ArrayList<>(errors);
+            result.setValid(false);
+            result.setErrorCount(errors.size());
+            result.setErrorLines(new ArrayList<>(errorLines))   ;
+            result.setErrorMessages(new ArrayList<>(errors));
 
-            System.out.println("XML is NOT valid. Found " + result.errorCount + " error(s):");
+            System.out.println("XML is NOT valid. Found " + result.getErrorCount() + " error(s):");
 
             for (int i = 0; i < errors.size(); i++) {
-                System.out.println("Line " + result.errorLines.get(i) + ": " + result.errorMessages.get(i));
+                System.out.println("Line " + result.getErrorLines().get(i) + ": " + result.getErrorMessages().get(i));
             }
         }
 
@@ -198,11 +197,4 @@ public class XmlValidator {
 
         return cleaned;
     }
-}
-
-class ValidationResult {
-    boolean isValid;
-    int errorCount;
-    List<Integer> errorLines;
-    List<String> errorMessages;
 }
