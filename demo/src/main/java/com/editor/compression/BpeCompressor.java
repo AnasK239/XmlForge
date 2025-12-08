@@ -12,12 +12,11 @@ public class BpeCompressor {
         if (input == null || input.isEmpty())
             return "";
         // add minifier here later
-        String text = input.replace("@", "@@");
 
         PairTable pt = new PairTable(MAX_ITERATIONS);
-
+        // System.err.println(input);
         for (int i = 0; i < MAX_ITERATIONS; i++) {
-            String bestPair = findMostFrequentPair(text);
+            String bestPair = findMostFrequentPair(input);
 
             if (bestPair == null)
                 break;
@@ -26,7 +25,7 @@ public class BpeCompressor {
 
             pt.add(bestPair, token);
 
-            text = text.replace(bestPair, token);
+            input = input.replace(bestPair, token);
         }
 
         StringBuilder output = new StringBuilder();
@@ -43,7 +42,7 @@ public class BpeCompressor {
 
         output.append("----\n");
 
-        output.append(text);
+        output.append(input);
 
         return output.toString();
     }
@@ -82,7 +81,7 @@ public class BpeCompressor {
                 pt.add(pair, token);
             }
         }
-
+        System.err.println("Decompression rules loaded: " + pt.getCount());
         if (scanner.hasNextLine()) {
             String separator = scanner.nextLine().trim();
             if (!separator.equals("----")) {
@@ -104,10 +103,9 @@ public class BpeCompressor {
             body = body.replace(token, pair);
         }
 
-        String result = body.replace("@@", "@");
 
         scanner.close();
-        return result;
+        return body;
     }
 
     private String findMostFrequentPair(String text) {

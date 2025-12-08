@@ -1,6 +1,8 @@
-package com.editor.xml.formatter;
+package com.editor;
 
 import com.editor.structures.xml.*;
+import com.editor.xml.formatter.XmlFormatter;
+import com.editor.xml.formatter.XmlMinifier;
 import com.editor.xml.parser.XmlParser;
 
 public class XmlFormatterMain {

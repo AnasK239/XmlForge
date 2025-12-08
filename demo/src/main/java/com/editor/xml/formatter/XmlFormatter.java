@@ -10,7 +10,9 @@ public class XmlFormatter {
     public String format(XmlDocument doc) {
         StringBuilder sb = new StringBuilder();
         formatNode(doc.getRoot(), 0, sb);
-        return sb.toString();
+        // result without trailing newline
+        String result = sb.toString().trim();
+        return result;
     }
 
     private void formatNode(XmlNode node, int depth, StringBuilder sb) {

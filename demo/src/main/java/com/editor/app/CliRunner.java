@@ -95,8 +95,9 @@ public class CliRunner {
     private static void runMinify(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
+            XmlDocument doc = new XmlParser().parse(xml);
             XmlMinifier minifier = new XmlMinifier();
-            String minified = minifier.minify(xml);
+            String minified = minifier.minify(doc);
 
             FileManager.writeFile(opt.getOutputPath(), minified);
             System.out.println("XML minification completed.");

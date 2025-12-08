@@ -1,4 +1,10 @@
-package com.editor.xml.parser;
+package com.editor;
+
+
+import com.editor.xml.parser.XmlParser;
+import com.editor.xml.parser.XmlToken;
+import com.editor.xml.parser.XmlTokenizer;
+import com.editor.xml.parser.XmlValidator;
 
 public class TestMain {
 

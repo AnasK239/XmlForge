@@ -2,6 +2,7 @@ package com.editor.xml.formatter;
 
 import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
+import com.editor.xml.parser.XmlParser;
 
 public class XmlMinifier {
     //Remove unnecessary whitespace.
@@ -58,5 +59,12 @@ public class XmlMinifier {
         }
 
         return sb.toString();
+    }
+
+    public String minify(String xml)
+    {
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        return minify(doc);
     }
 }

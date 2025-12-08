@@ -1,7 +1,8 @@
-package com.editor.xml.converter;
+package com.editor;
 
 import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
+import com.editor.xml.converter.XmlToJson;
 
 public class XmlTojsonTest {
     public static void main(String[] args) {
