@@ -1,51 +1,100 @@
 package com.editor.io;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Parses and stores command-line arguments for the CLI application.
+ * Supports commands and flags like -i, -o, -f, -id, -ids, -w, -t
+ */
 public class CommandLineOptions {
-    // Parse and store CLI args (verify, format, -i, -o, -f, -ids, -w, -t, -id).
 
-    private String command;
-    private String inputPath;
-    private String outputPath;
-    private boolean fix;
-    private int[] ids;
-    private Integer singleId;
-    private String word;
-    private String topic;
+    private String command;        // The main command (e.g., verify, minify)
+    private String inputPath;      // Input file path
+    private String outputPath;     // Output file path
+    private boolean fix;           // -f flag to fix XML errors automatically
+    private int[] ids;             // -ids multiple IDs
+    private Integer singleId;      // -id single ID
+    private String word;           // -w search word
+    private String topic;          // -t search topic
 
-    private CommandLineOptions() {}
+    private CommandLineOptions() {} // Private constructor to enforce use of parse()
 
-    public static CommandLineOptions parse(String[] args)
-    {
-        CommandLineOptions options = new CommandLineOptions();
-        options.command = args[0];
+    /**
+     * Parses command-line arguments into a CommandLineOptions object.
+     * @param args command-line arguments
+     * @return populated CommandLineOptions instance
+     */
+    public static CommandLineOptions parse(String[] args) {
 
-        for(int i = 1; i < args.length; i++){
-            if(args[i].equals("-i") && i+1 < args.length){
-                options.inputPath = args[i+1];
-                i++;
-            }
-            else if(args[i].equals("-o") && i+1 < args.length){
-                options.outputPath = args[i+1];
-                i++;
-            }
+        CommandLineOptions opt = new CommandLineOptions();
 
-            // Need to add the other arguments same way.
+        if (args.length == 0) {
+            throw new IllegalArgumentException("No command provided!");
         }
 
+        // The first argument is always the command
+        opt.command = args[0];
 
-        return options;
+        List<Integer> idList = new ArrayList<>();
+
+        // Loop through remaining arguments to parse flags
+        for (int i = 1; i < args.length; i++) {
+            switch (args[i]) {
+                case "-i":
+                    if (++i < args.length)
+                        opt.inputPath = args[i];
+                    break;
+
+                case "-o":
+                    if (++i < args.length)
+                        opt.outputPath = args[i];
+                    break;
+
+                case "-f":
+                    opt.fix = true;
+                    break;
+
+                case "-id":        // SINGLE ID
+                    if (++i < args.length)
+                        opt.singleId = Integer.parseInt(args[i]);
+                    break;
+
+                case "-ids":       // MULTIPLE IDS
+                    // Collect all integers until next flag
+                    while (i + 1 < args.length && !args[i + 1].startsWith("-")) {
+                        idList.add(Integer.parseInt(args[++i]));
+                    }
+                    break;
+
+                case "-w":
+                    if (++i < args.length)
+                        opt.word = args[i];
+                    break;
+
+                case "-t":
+                    if (++i < args.length)
+                        opt.topic = args[i];
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Unknown flag: " + args[i]);
+            }
+        }
+
+        // Convert List<Integer> to int[]
+        opt.ids = idList.stream().mapToInt(Integer::intValue).toArray();
+        return opt;
     }
 
-    public String getCommand()
-    {
-        return command;
-    }
-    public String getInputPath(){
-        return inputPath;
-    }
-    public String getOutputPath(){
-        return outputPath;
-    }
-    // Getters for other fields...
-    //handle FIXing and any needed methods
+    // -------------------------- GETTERS --------------------------
+
+    public String getCommand() { return command; }
+    public String getInputPath() { return inputPath; }
+    public String getOutputPath() { return outputPath; }
+    public boolean isFixEnabled() { return fix; }
+    public int[] getIds() { return ids; }
+    public Integer getSingleId() { return singleId; }
+    public String getWord() { return word; }
+    public String getTopic() { return topic; }
 }
