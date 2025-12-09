@@ -69,8 +69,8 @@ public class XmlTokenizer {
 
             if (c == '<') {
                 // Consume character to avoid infinite loop
-                index++;
-                column++;
+//                index++;
+//                column++;
 
                 return new XmlToken(
                         XmlToken.Type.ERROR,

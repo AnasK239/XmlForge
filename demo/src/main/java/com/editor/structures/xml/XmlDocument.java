@@ -5,6 +5,7 @@ import com.editor.xml.formatter.XmlMinifier;
 
 public class XmlDocument {
     private XmlNode root;
+
     public XmlDocument()
     {
         this.root = null;
@@ -19,16 +20,14 @@ public class XmlDocument {
 
     public String toStringFormatted(String format)
     {
-        if(format == "format"){
+        if(format.equals("format")){
             // call corresponding method to prettifiy.
             
         }
-
-        if(format == "mini"){
+        if(format.equals("mini")){
             // Minifiy's the entire XML DOCUMENT
             return XmlMinifier.toMinifiedString(root);
         }
-        String empt = "";
-        return empt;
+        return "";
     }
 }

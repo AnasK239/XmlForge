@@ -14,7 +14,7 @@ public class FileManager {
             return new String(Files.readAllBytes(Paths.get(path)));
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }   
 
     }

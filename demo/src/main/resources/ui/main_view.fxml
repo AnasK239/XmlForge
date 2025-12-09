@@ -8,7 +8,6 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.editor.ui.MainController">
 
-    <!-- ========== TOP BAR (FILE INPUT) ========== -->
     <top>
         <HBox spacing="8" alignment="CENTER_LEFT" styleClass="top-bar">
             <padding>
@@ -23,9 +22,8 @@
         </HBox>
     </top>
 
-    <!-- ========== CENTER SPLIT: INPUT + OUTPUT ========== -->
     <center>
-        <SplitPane dividerPositions="0.5"><!-- Input -->
+        <SplitPane dividerPositions="0.5">
             <VBox spacing="4">
                 <padding>
                     <Insets top="8" right="4" bottom="8" left="8"/>
@@ -36,7 +34,6 @@
                           VBox.vgrow="ALWAYS"/>
             </VBox>
 
-            <!-- Output -->
             <VBox spacing="4">
                 <padding>
                     <Insets top="8" right="8" bottom="8" left="4"/>
@@ -51,11 +48,9 @@
         </SplitPane>
     </center>
 
-    <!-- ========== BOTTOM: BUTTON BAR + STATUS ========== -->
     <bottom>
         <VBox spacing="4">
 
-            <!-- Buttons -->
             <HBox spacing="6" alignment="CENTER_LEFT" styleClass="button-bar">
                 <padding>
                     <Insets top="6" right="8" bottom="2" left="8"/>
@@ -71,8 +66,6 @@
                 <Button text="Clear" onAction="#handleClear" styleClass="btn, btn-warning"/>
             </HBox>
 
-
-            <!-- Status bar -->
             <HBox spacing="4" alignment="CENTER_LEFT" styleClass="status-bar">
                 <padding>
                     <Insets right="8" bottom="8" left="8"/>
