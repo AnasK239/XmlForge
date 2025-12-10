@@ -1,164 +1,153 @@
 package com.editor.xml.parser;
 
+import com.editor.structures.xml.XmlDocument;
+import com.editor.structures.xml.XmlNode;
+
 public class TestMain {
 
     public static void main(String[] args) {
 
-        XmlValidator validator = new XmlValidator();
+        String xml = """
 
-        // ----------------------------
-        // Helper for structured printing
-        // ----------------------------
-        Runnable separator = () -> System.out.println("\n----------------------------------------\n");
+<users> 
+        <user>
+        <id>1</id>
+        <name>Ahmed Ali</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        economy
+                    </topic>
+                    <topic>
+                        finance
+                    </topic>   
+                </topics>
+            </post>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        solar_energy
+                    </topic>
+                </topics>
+            </post>
+        </posts>
+        </user>
+</users>
+""";
 
-        // -------------------------------------------------
-        // TOKENIZER TEST — see raw tokens
-        // -------------------------------------------------
-        System.out.println("===== TOKENIZER TEST =====");
-        String tokTest = "<root><a>hello</a><b/></root>";
-        XmlTokenizer t = new XmlTokenizer(tokTest);
-        while (t.hasNext()) {
-            XmlToken tok = t.next();
-            System.out.println(tok);
+        // =============================
+        // PARSE XML
+        // =============================
+        XmlParser parser = new XmlParser();
+        XmlDocument document = parser.parse(xml);
+
+        // =============================
+        // PRINT PARSER ERRORS
+        // =============================
+        if (!parser.getErrors().isEmpty()) {
+            System.out.println("==== ERRORS FOUND ====");
+            for (int i = 0; i < parser.getErrors().size(); i++) {
+                System.out.println("[Line " + parser.getErrorLineNumbers().get(i) + "] "
+                        + parser.getErrors().get(i));
+            }
+        } else {
+            System.out.println("No parser errors.");
         }
-        separator.run();
 
-        // -------------------------------------------------
-        // PARSER TESTS
-        // -------------------------------------------------
-        System.out.println("===== PARSER TEST 1: Missing Closing Tag =====");
-        parseOnly("<root><a></root>");
-        separator.run();
+        // =============================
+        // PRINT PARSED XML TREE
+        // =============================
+        System.out.println("\n==== PARSED XML TREE ====");
+        printNode(document.getRoot(), 0);
 
-        System.out.println("===== PARSER TEST 2: Nested Incorrect Closing =====");
-        parseOnly("<a><b></c></b></a>");
-        separator.run();
+        // =============================
+        // BUILD FINAL XML STRING
+        // =============================
+//        String finalXml = nodeToString(document.getRoot(), 0);
 
-        System.out.println("===== PARSER TEST 3: Text Before Root =====");
-        parseOnly("hello <a></a>");
-        separator.run();
+        // =============================
+        // VALIDATE FINAL XML
+        // =============================
+//        XmlValidator validator = new XmlValidator();
+//        ValidationResult result = validator.validate(finalXml);
+//
+//        System.out.println("\n==== VALIDATION RESULT ====");
+//        if (result.isValid) {
+//            System.out.println("XML is valid!");
+//        } else {
+//            System.out.println("Validation Errors: " + result.errorCount);
+//            for (int line : result.errorLines) {
+//                System.out.println(" - Error at line: " + line);
+//            }
+//        }
 
-        System.out.println("===== PARSER TEST 4: Unexpected '<' =====");
-        parseOnly("<root <name>></root>");
-        separator.run();
-
-        System.out.println("===== PARSER TEST 5: Self Closing =====");
-        parseOnly("<root><a/><b/><c/></root>");
-        separator.run();
-
-        System.out.println("===== PARSER TEST 6: Multi-root =====");
-        parseOnly("<a></a><b></b>");
-        separator.run();
-
-
-        // -------------------------------------------------
-        // VALIDATOR TESTS (same ones you used before)
-        // -------------------------------------------------
-        System.out.println("===== VALIDATOR TESTS =====");
-
-        testValidation("Missing Closing Tag", "<root><a></root>");
-
-        testValidation("Mismatched Tag", "<name></nam>");
-
-        testValidation("Closing Tag Without Opening", "</a>");
-
-        testValidation("Text Before Root", "hello <root></root>");
-
-        testValidation("Text After Root", "<root></root>hello");
-
-        testValidation("Unexpected '<' inside tag", "<root <name>></root>");
-
-        testValidation("Unexpected '>' in text", "<root>hello>world</root>");
-
-        testValidation("VALID XML", "<root><a>hi</a></root>");
-
-        testValidation("Very Deep Nesting", "<a><b><c><d></d></c></b></a>");
-
-        testValidation("Missing Many Closing Tags", "<root><a><b><c><d>");
-
-        testValidation("Random Bad Characters in Tag", "<a$#></a>");
-
-        testValidation("Repeated Unexpected '<'", "<a<<<b></b></a>");
-
-        testValidation("Tags With Large Whitespace", "<   a   ><   b   ></   b   ></   a   >");
-
-        testValidation("Text With Many Special Characters", "<root>>>>><</root>");
-
-        testValidation("Multi-root", "<a></a><b></b>");
-
-        testValidation("Extremely Long Text Node", "<root>" + "x".repeat(2000) + "</root>");
-
-        testValidation("Nested Incorrect Closing Tags", "<a><b><c></b></c></a>");
-
-        testValidation("Lone Text Without Brackets", "hello");
-
-        testValidation("Tag With Space Before Name", "<   tag></tag>");
-
-        testValidation("Tag With Space After Name", "<tag   ></tag>");
-
-        testValidation("Self-Closing With Spaces", "<tag   />");
-
-        testValidation("Incorrect Self-Closing Patterns", "<tag/ / ></tag>");
-
-        testValidation("Garbage Mixed XML", "<a><b></c>><<<</a>");
-
-        separator.run();
-
-
-        // -------------------------------------------------
-        // FIXER TESTS
-        // -------------------------------------------------
-        System.out.println("===== FIXER TESTS =====");
-
-        System.out.println("Fix Leading Text:");
-        printFix("hello <a></a>");
-
-        System.out.println("Fix Multi-root:");
-        printFix("<a></a><b></b>");
-
-        System.out.println("Fix Missing Closing Tags:");
-        printFix("<root><a><b><c>");
-
-        System.out.println("Fix Combined Broken XML:");
-        printFix("xxx <a><b>hello</root>");
-
-        System.out.println("\n===== ALL TESTS COMPLETE =====");
+        // =============================
+        // PRINT FIXED XML
+        // =============================
+//        System.out.println("\n==== FINAL FIXED XML ====");
+//        System.out.println(finalXml);
     }
 
-    // --------------------------
-    // Parser only test function
-    // --------------------------
-    private static void parseOnly(String xml) {
-        XmlParser p = new XmlParser();
-        p.parse(xml);
+    // =============================
+    // PRINT TREE FOR DEBUG
+    // =============================
+    private static void printNode(XmlNode node, int indent) {
+        if (node == null) return;
 
-        if (p.getErrors().isEmpty()) {
-            System.out.println("Parser: NO ERRORS");
-            return;
+        String spaces = " ".repeat(indent);
+
+        if (node.getName() != null) {
+            System.out.println(spaces + "<" + node.getName() + ">");
         }
 
-        for (int i = 0; i < p.getErrors().size(); i++) {
-            System.out.println("Line " + p.getErrorLineNumbers().get(i) +
-                               ": " + p.getErrors().get(i));
+        if (node.getTextContent() != null && !node.getTextContent().trim().isEmpty()) {
+            System.out.println(spaces + "  " + node.getTextContent().trim());
+        }
+
+        for (XmlNode child : node.getChildren()) {
+            printNode(child, indent + 2);
+        }
+
+        if (node.getName() != null) {
+            System.out.println(spaces + "</" + node.getName() + ">");
         }
     }
 
-    // --------------------------
-    // Validator test helper
-    // --------------------------
-    private static void testValidation(String title, String xml) {
-        System.out.println("\n===== TEST: " + title + " =====");
-        XmlValidator validator = new XmlValidator();
-        validator.validate(xml);
-    }
-
-    // --------------------------
-    // Fixer output helper
-    // --------------------------
-    private static void printFix(String xml) {
-        XmlValidator v = new XmlValidator();
-        System.out.println("Fixed XML:");
-        System.out.println(v.fix(xml));
-        System.out.println();
-    }
+//    // =============================
+//    // CONVERT TREE TO VALID XML STRING
+//    // =============================
+//    private static String nodeToString(XmlNode node, int indent) {
+//        if (node == null || node.getName() == null) return "";
+//
+//        StringBuilder sb = new StringBuilder();
+//        String spaces = " ".repeat(indent);
+//
+//        // Opening tag
+//        sb.append(spaces).append("<").append(node.getName()).append(">\n");
+//
+//        // Text content
+//        if (node.getTextContent() != null && !node.getTextContent().trim().isEmpty()) {
+//            sb.append(spaces)
+//                    .append("  ")
+//                    .append(node.getTextContent().trim())
+//                    .append("\n");
+//        }
+//
+//        // Children
+//        for (XmlNode child : node.getChildren()) {
+//            sb.append(nodeToString(child, indent + 2));
+//        }
+//
+//        // Closing tag
+//        sb.append(spaces).append("</").append(node.getName()).append(">\n");
+//
+//        return sb.toString();
+//    }
 }

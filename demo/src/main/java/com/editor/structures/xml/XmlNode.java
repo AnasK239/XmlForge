@@ -32,7 +32,7 @@ public class XmlNode {
 
     private String name; // null for pure text nodes
     private String textContent; // null for non-pure text nodes
-
+    private int line;
     private List<XmlAttribute> attributes; // UNUSED FOR NOW
     private List<XmlNode> children;
 
@@ -41,6 +41,18 @@ public class XmlNode {
         this.textContent = textContent;
         this.attributes = new ArrayList<XmlAttribute>();
         this.children = new ArrayList<XmlNode>();
+        this.line=0;
+    }
+    public XmlNode(String name, String textContent,int line) {
+        this.name = name;
+        this.textContent = textContent;
+        this.attributes = new ArrayList<XmlAttribute>();
+        this.children = new ArrayList<XmlNode>();
+        this.line=line;
+    }
+
+    public int getLine() {
+        return line;
     }
 
     public void addChild(XmlNode child){
