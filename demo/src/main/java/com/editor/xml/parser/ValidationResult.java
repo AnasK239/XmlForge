@@ -7,12 +7,16 @@ public class ValidationResult {
     private boolean isValid;
     private int errorCount;
     private List<Integer> errorLines;
+    private List<String> errorMessages;
 
     // ---- Getters ----
     public boolean isValid() {
         return isValid;
     }
 
+    public List<String> getErrorMessages() {
+        return errorMessages;
+    }
     public int getErrorCount() {
         return errorCount;
     }
@@ -32,5 +36,8 @@ public class ValidationResult {
 
     public void setErrorLines(List<Integer> lines) {
         this.errorLines = lines;
+    }
+    public void setErrorMessages(List<String> messages) {
+        this.errorMessages = messages;
     }
 }

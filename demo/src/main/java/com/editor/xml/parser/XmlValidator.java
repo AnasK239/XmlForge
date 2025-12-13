@@ -23,19 +23,19 @@ public class XmlValidator {
             result.setValid(true);
             result.setErrorCount(0);
             result.setErrorLines(new ArrayList<>());
-            result.errorMessages = new ArrayList<>();
+            result.setErrorMessages(new ArrayList<>());
             System.out.println("XML is valid.");
         } else {
             result.setValid(false);
             result.setErrorCount(errors.size());
             result.setErrorLines(new ArrayList<>(errorLines));
-            result.errorMessages = new ArrayList<>(errors);
+            result.setErrorMessages(new ArrayList<>(errors));
 
             // >>>>>>>>>> CHANGED: Better error display
             System.out.println("XML is NOT valid. Found " + result.getErrorCount() + " error(s):");
 
             for (int i = 0; i < errors.size(); i++) {
-                System.out.println("  [Line " + result.getErrorLines().get(i) + "] " + result.errorMessages.get(i));
+                System.out.println("  [Line " + result.getErrorLines().get(i) + "] " + result.getErrorMessages().get(i));
             }
         }
 
