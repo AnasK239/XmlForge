@@ -16,7 +16,7 @@ public class ValidationResult {
 
     public List<String> getErrorMessages() {
         return errorMessages;
-    }
+    }   
     public int getErrorCount() {
         return errorCount;
     }
