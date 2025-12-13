@@ -20,22 +20,22 @@ public class XmlValidator {
         List<Integer> errorLines = parser.getErrorLineNumbers();
 
         if (errors.isEmpty()) {
-            result.isValid = true;
-            result.errorCount = 0;
-            result.errorLines = new ArrayList<>();
+            result.setValid(true);
+            result.setErrorCount(0);
+            result.setErrorLines(new ArrayList<>());
             result.errorMessages = new ArrayList<>();
             System.out.println("XML is valid.");
         } else {
-            result.isValid = false;
-            result.errorCount = errors.size();
-            result.errorLines = new ArrayList<>(errorLines);
+            result.setValid(false);
+            result.setErrorCount(errors.size());
+            result.setErrorLines(new ArrayList<>(errorLines));
             result.errorMessages = new ArrayList<>(errors);
 
             // >>>>>>>>>> CHANGED: Better error display
-            System.out.println("XML is NOT valid. Found " + result.errorCount + " error(s):");
+            System.out.println("XML is NOT valid. Found " + result.getErrorCount() + " error(s):");
 
             for (int i = 0; i < errors.size(); i++) {
-                System.out.println("  [Line " + result.errorLines.get(i) + "] " + result.errorMessages.get(i));
+                System.out.println("  [Line " + result.getErrorLines().get(i) + "] " + result.errorMessages.get(i));
             }
         }
 
