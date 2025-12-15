@@ -12,6 +12,7 @@ import com.editor.xml.formatter.XmlFormatter;
 import com.editor.xml.converter.XmlToJson;
 import com.editor.xml.parser.ValidationResult;
 import com.editor.xml.parser.XmlParser;
+import com.editor.compression.Compressor;
 
 /**
  * Handles CLI execution for commands like verify, minify, format, json, etc.
@@ -120,7 +121,7 @@ public class CliRunner {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
             XmlFormatter formatter = new XmlFormatter();
-            String formatted = formatter.format(xml);
+            String formatted = formatter.formatString(xml);
             FileManager.writeFile(opt.getOutputPath(), formatted);
 
             System.out.println("Formatting completed.");
@@ -135,14 +136,63 @@ public class CliRunner {
      * Placeholder for future XML compression logic.
      */
     private static void runCompress(CommandLineOptions opt) {
-        System.out.println("Compression: COMING LATER (Level 1 requirement, but logic TBD).");
+        // first check the type of file
+        String path = opt.getInputPath();
+        if (path.endsWith(".xml")) {
+            try {
+                String xml = FileManager.readFile(opt.getInputPath());
+                Compressor compressor = new Compressor();
+                String compressed = compressor.compress(xml);
+                FileManager.writeFile(opt.getOutputPath(), compressed);
+                System.out.println("XML compression completed.");
+                System.out.println("Saved to: " + opt.getOutputPath());
+            } catch (Exception e) {
+                System.out.println("Error during compression: " + e.getMessage());
+            }
+        } else {
+            try {
+                String xml = FileManager.readFile(opt.getInputPath());
+                Compressor compressor = new Compressor();
+                String compressed = compressor.compressJson(xml);
+                FileManager.writeFile(opt.getOutputPath(), compressed);
+                System.out.println("XML compression completed.");
+                System.out.println("Saved to: " + opt.getOutputPath());
+            } catch (Exception e) {
+                System.out.println("Error during compression: " + e.getMessage());
+            }
+        }
     }
 
     /**
      * Placeholder for future XML decompression logic.
      */
     private static void runDecompress(CommandLineOptions opt) {
-        System.out.println("Decompression: COMING LATER (Level 1 requirement, but logic TBD)");
+        // check the output type
+        String path = opt.getOutputPath();
+
+        if (path.endsWith(".xml")) {
+            try {
+                String compressed = FileManager.readFile(opt.getInputPath());
+                Compressor compressor = new Compressor();
+                String decompressed = compressor.decompress(compressed);
+                FileManager.writeFile(opt.getOutputPath(), decompressed);
+                System.out.println("XML decompression completed.");
+                System.out.println("Saved to: " + opt.getOutputPath());
+            } catch (Exception e) {
+                System.out.println("Error during decompression: " + e.getMessage());
+            }
+        } else {
+            try {
+                String compressed = FileManager.readFile(opt.getInputPath());
+                Compressor compressor = new Compressor();
+                String decompressed = compressor.decompressToJson(compressed);
+                FileManager.writeFile(opt.getOutputPath(), decompressed);
+                System.out.println("JSON decompression completed.");
+                System.out.println("Saved to: " + opt.getOutputPath());
+            } catch (Exception e) {
+                System.out.println("Error during decompression: " + e.getMessage());
+            }
+        }
     }
 
     /**
