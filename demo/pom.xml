@@ -33,7 +33,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version> <!-- Replace with a compatible version -->
                 <configuration>
-                    <mainClass>com.example.YourMainAppClass</mainClass>
+                    <mainClass>com.example.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
