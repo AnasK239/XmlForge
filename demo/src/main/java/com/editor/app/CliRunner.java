@@ -1,8 +1,11 @@
 package com.editor.app;
 
+import com.editor.analysis.GraphBuilder;
 import com.editor.io.CommandLineOptions;
 import com.editor.io.FileManager;
+import com.editor.structures.graph.SocialNetwork;
 import com.editor.structures.xml.XmlDocument;
+import com.editor.ui.GraphView;
 import com.editor.xml.parser.XmlValidator;
 import com.editor.xml.formatter.XmlMinifier;
 import com.editor.xml.formatter.XmlFormatter;
@@ -52,6 +55,8 @@ public class CliRunner {
             case "print":
                 runPrint(opt);
                 break;
+            case "draw":
+                runDraw(opt);
             default:
                 System.out.println("Unknown command: " + cmd);
         }
@@ -178,6 +183,34 @@ public class CliRunner {
 
         } catch (Exception e) {
             System.out.println("Error in print: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Generates visual image for the network graph.
+     */
+    private static void runDraw(CommandLineOptions opt) {
+        try {
+            // 1. Read and Parse XML
+            String xml ="";
+            try {
+                xml = FileManager.readFile(opt.getInputPath());
+            } catch (Exception e) {
+                System.out.println("Error in print: " + e.getMessage());
+            }
+
+            SocialNetwork network = new GraphBuilder().build(new XmlParser().parse(xml));
+            System.out.println("Generating graph from: " + opt.getInputPath());
+
+            // 2. Render Image
+            if (network != null) {
+                GraphView view = new GraphView();
+                view.run(network, opt.getOutputPath());
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error generating graph: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

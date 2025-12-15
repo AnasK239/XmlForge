@@ -1,23 +1,35 @@
 package com.editor.structures.graph;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+// Database of userId -> UserNode
 public class UserDirectory {
-    //Custom mapping from user id → UserNode.
-    private int[] ids;
 
-    private UserNode[] users;
+    private Map<Integer,UserNode> users;
 
-    private int size;
-
-    public void addUser(UserNode user){}
-
-    public UserNode getById(int id)
-    {
-        return null;
-        // linear search or binary search if kept sorted.
+    public UserDirectory() {
+        this.users = new HashMap<>();
     }
-    public UserNode[] getAllUsers()
-    {
-        return users;
+
+    public void addUser(UserNode user) {
+        users.put(user.getId() , user );
     }
+
+    public UserNode getById(int id) {
+        return users.get(id);
+    }
+
+    public List<UserNode> getAllUsers() {
+        return new ArrayList<>(users.values());
+    }
+
+    public int getSize(){
+        return users.size();
+    }
+
+
 
 }

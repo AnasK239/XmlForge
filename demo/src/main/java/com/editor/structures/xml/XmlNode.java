@@ -68,4 +68,12 @@ public class XmlNode {
     public String getName(){ return this.name; }
     public List<XmlNode> getChildren(){ return this.children; }
 
+    public String getNodeValue() {
+        for (XmlNode child : this.children) {
+            if (child.isTextNode()) {
+                return child.getTextContent().trim();
+            }
+        }
+        return null;
+    }
 }
