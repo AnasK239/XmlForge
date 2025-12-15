@@ -16,16 +16,15 @@ public class GraphView {
 
         Graph graph = network.getGraph();
 
-        // Loop on the nodes , for each node make its children(ID'S) point to it in the string
-        // ex user 1 has followers 2 , 3 ,,  2->1 , 3->1
+        // Loop on the nodes and draw edges from the user to the people they follow
         for (int userId = 0; userId < graph.getSize(); userId++) {
-            List<Integer> followers = graph.getNeighbors(userId);
-            if (followers != null && !followers.isEmpty()) {
-                sb.append("    { ");
-                for (int followerId : followers) {
-                    sb.append(followerId).append(" ");
+            List<Integer> following = graph.getNeighbors(userId);
+            if (following != null && !following.isEmpty()) {
+                sb.append("    ").append(userId).append(" -> { ");
+                for (int followeeId : following) {
+                    sb.append(followeeId).append(" ");
                 }
-                sb.append("} -> ").append(userId).append(";\n");
+                sb.append("};\n");
             }
         }
         sb.append("}\n");

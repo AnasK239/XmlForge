@@ -86,4 +86,21 @@ public class XmlNode {
         }
         return null;
     }
+    public XmlNode getChild(String childName) {
+        for (XmlNode child : this.children) {
+            if (childName.equals(child.getName())) {
+                return child;
+            }
+        }
+        return null;
+    }
+    public List<XmlNode> getChildren(String childName) {
+        List<XmlNode> matchingChildren = new ArrayList<>();
+        for (XmlNode child : this.children) {
+            if (childName.equals(child.getName())) {
+                matchingChildren.add(child);
+            }
+        }
+        return matchingChildren;
+    }
 }
