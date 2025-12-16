@@ -1,13 +1,12 @@
 package com.editor.xml.parser;
 
-public class XmlToken {
+class XmlToken {
 
     public enum Type {
         OPENING_TAG,
         CLOSING_TAG,
         SELF_CLOSING_TAG,
-        TEXT,
-        ERROR
+        TEXT
     }
 
     private Type type;
@@ -34,13 +33,7 @@ public class XmlToken {
     public boolean isOpeningTag() { return type == Type.OPENING_TAG; }
     public boolean isClosingTag() { return type == Type.CLOSING_TAG; }
     public boolean isSelfClosingTag() { return type == Type.SELF_CLOSING_TAG; }
-    public boolean isError() { return type == Type.ERROR; }
 
-    public static XmlToken error(String msg, int line, int col) {
-        return new XmlToken(Type.ERROR, null, msg, line, col);
-    }
-
-    @Override
     public String toString() {
         switch (type) {
             case TEXT:

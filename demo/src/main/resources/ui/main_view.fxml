@@ -13,10 +13,16 @@
             <padding>
                 <Insets top="8" right="8" bottom="8" left="8"/>
             </padding>
+
             <Label text="File:"/>
+
             <TextField fx:id="filePathField"
-                       promptText="Choose an XML file or paste XML below"
+                       promptText="Choose a file or paste content below"
                        HBox.hgrow="ALWAYS"/>
+
+            <Label text="Type:"/>
+            <ComboBox fx:id="typeComboBox" prefWidth="110"/>
+
             <Button text="Browse..." onAction="#handleBrowseFile"/>
             <Button text="Load" onAction="#handleLoadFile"/>
         </HBox>
@@ -60,10 +66,12 @@
                 <Button text="Format" onAction="#handleFormat" styleClass="btn, btn-secondary"/>
                 <Button text="Minify" onAction="#handleMinify" styleClass="btn, btn-secondary"/>
                 <Button text="To JSON" onAction="#handleToJson" styleClass="btn, btn-accent"/>
+                <Button text="To XML"  onAction="#handleToXml" styleClass="btn, btn-accent"/>
                 <Button text="Compress" onAction="#handleCompress" styleClass="btn, btn-secondary"/>
                 <Button text="Decompress" onAction="#handleDecompress" styleClass="btn, btn-secondary"/>
                 <Button text="Save Output" onAction="#handleSaveOutput" styleClass="btn, btn-success"/>
                 <Button text="Clear" onAction="#handleClear" styleClass="btn, btn-warning"/>
+                <Button text="Output → Input" onAction="#handleMoveOutToIn" styleClass="btn, btn-secondary"/>
             </HBox>
 
             <HBox spacing="4" alignment="CENTER_LEFT" styleClass="status-bar">

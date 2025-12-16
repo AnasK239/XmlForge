@@ -7,7 +7,7 @@ import com.editor.structures.xml.XmlNode;
 
 public class GraphBuilder {
 
-    public  SocialNetwork build(XmlDocument doc){
+    public SocialNetwork build(XmlDocument doc){
         SocialNetwork network = new SocialNetwork();
         if (doc == null || doc.getRoot() == null) return network;
 
