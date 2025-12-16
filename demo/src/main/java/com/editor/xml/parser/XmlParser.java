@@ -78,7 +78,7 @@ public class XmlParser {
 
                         // report missing closing tag
                         errors.add("Missing closing tag for <" + top.getName() + "> ");
-                        errorLineNumbers.add(token.getLine());
+                        errorLineNumbers.add(token.getLine()-1);
 
                         // pop it
                         XmlNode closed = stack.pop();
@@ -172,7 +172,7 @@ public class XmlParser {
 
                         errors.add("Missing closing tag for <" + missingClose.getName() +
                                 ">");
-                        errorLineNumbers.add(token.getLine()-1);
+                        errorLineNumbers.add(token.getLine());
 
                         if (!stack.isEmpty()) stack.peek().addChild(missingClose);
                         else topLevelNodes.add(missingClose);
@@ -249,7 +249,7 @@ public class XmlParser {
 
                     // Report error with correct insert line
                     errors.add("Missing opening tag <" + closing + "> ");
-                    errorLineNumbers.add(insertLine-1);
+                    errorLineNumbers.add(insertLine);
 
                     // Create missing element with correct line number
                     XmlNode missing = new XmlNode(closing, null, insertLine);
@@ -280,8 +280,8 @@ public class XmlParser {
                 }else {
                     // This node is a root-level element
                     if (!topLevelNodes.contains(top)) {
-                    topLevelNodes.add(top);
-                }
+                        topLevelNodes.add(top);
+                    }
                 }
             }
         }

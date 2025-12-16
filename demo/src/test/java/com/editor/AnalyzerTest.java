@@ -2,6 +2,7 @@ package com.editor;
 
 import com.editor.analysis.GraphBuilder;
 import com.editor.analysis.NetworkAnalyzer;
+import com.editor.analysis.PostSearcher;
 import com.editor.io.FileManager;
 import com.editor.structures.graph.SocialNetwork;
 import com.editor.structures.xml.XmlDocument;
@@ -13,7 +14,7 @@ public class AnalyzerTest {
     public static void main(String[] args) {
         String original = FileManager.readFile("demo\\src\\main\\resources\\samples\\sample.xml");
         tester(original);
-        System.err.println("Done    ");
+        System.out.println("Done    ");
         String s2 = FileManager.readFile("demo\\src\\main\\resources\\samples\\sample2.xml");
         tester(s2);
     }
@@ -22,8 +23,7 @@ public class AnalyzerTest {
         String path = "demo\\output"+cnt+".jpg";
         cnt++;
         XmlParser parser = new XmlParser();
-        XmlDocument doc = new XmlDocument();
-        doc = parser.parse(s);
+        XmlDocument doc = parser.parse(s);
         GraphBuilder builder = new GraphBuilder();
         SocialNetwork network =  builder.build(doc);
         GraphView graphView = new GraphView();
@@ -33,10 +33,13 @@ public class AnalyzerTest {
             e.printStackTrace();
         }
         NetworkAnalyzer analyzer = new NetworkAnalyzer();
+        PostSearcher postSearcher = new PostSearcher();
         System.out.println(analyzer.mostInfluencerId(network));
         System.out.println(analyzer.mostActiveId(network));
         System.out.println(analyzer.mutualFollowersIds(network, new int[]{1,2}));
         System.out.println(analyzer.mutualFollowersIds(network, new int[]{6,8,4}));
         System.out.println(analyzer.suggestUsersToFollowIds(network, 1));
+        postSearcher.searchByWord(network, "lorem");
+        postSearcher.searchByTopic(network, "literature");
     }
 }

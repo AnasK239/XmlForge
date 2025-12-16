@@ -8,10 +8,11 @@ import com.editor.structures.graph.UserDirectory;
 
 public class NetworkAnalyzer {
     // Role: Implement network queries.
+    // xml_editor format -i src/main/resources/samples/sample.xml -o output_file.xml
 
     public UserNode mostInfluencer(SocialNetwork network) {
-        // user with largest number of followers.
-       UserDirectory userDirectory = network.getUserDirectory();
+        // user with the largest number of followers.
+        UserDirectory userDirectory = network.getUserDirectory();
         List<UserNode> users = userDirectory.getAllUsers();
         UserNode mostInfluencerUser = null;
         int maxInDegree = -1;
@@ -25,8 +26,7 @@ public class NetworkAnalyzer {
         }
         return mostInfluencerUser;
     }
-    public int mostInfluencerId(SocialNetwork network)
-    {
+    public int mostInfluencerId(SocialNetwork network) {
         UserNode mostInfluencerUser = mostInfluencer(network);
         return mostInfluencerUser.getId();
     }
@@ -48,12 +48,10 @@ public class NetworkAnalyzer {
         }
         return mostActiveUser;
     }
-    public int mostActiveId(SocialNetwork network)
-    {
+    public int mostActiveId(SocialNetwork network) {
         UserNode mostActiveUser = mostActive(network);
         return mostActiveUser.getId();
     }
-
 
     public List<Integer> mutualFollowersIds(SocialNetwork network, int[] ids) {
 
