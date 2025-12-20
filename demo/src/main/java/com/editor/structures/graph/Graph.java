@@ -5,11 +5,9 @@ import java.util.List;
 
 public class Graph {
 
-    // Not used (dont know if we will need it yet)
-    private int[] userIds;
 
-    private int size; // number of users
-    private List<Integer>[] adj; // adjacency list: adj[i] = List of (followers or followings ?)
+    private int size; 
+    private ArrayList<Integer>[] adj; 
 
     public Graph(int maxNodes) {
         this.size = maxNodes+1;
@@ -26,7 +24,7 @@ public class Graph {
     }
 
     public void addEdge(int fromUserId , int toUserId ){
-        // Make sure both are in the bounds of graph size
+
         addNode(fromUserId);
         addNode(toUserId);
 
@@ -37,7 +35,7 @@ public class Graph {
 
     // If user id bigger than the current capacity , the adj list is doubled
     private void resize(int newCapacity) {
-        List<Integer>[] newAdj = new ArrayList[newCapacity];
+        ArrayList<Integer>[] newAdj = new ArrayList[newCapacity];
         for (int i = 0; i < adj.length; i++) {
             newAdj[i] = adj[i];
         }
@@ -59,7 +57,6 @@ public class Graph {
         return getNeighbors(userId).size();
     }
 
-    // probably will not need this because UserDirectory has all users
     public int getSize() {
         return adj.length;
     }

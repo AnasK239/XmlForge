@@ -1,8 +1,13 @@
 package com.editor.app;
 
+import java.util.List;
+
 import com.editor.analysis.GraphBuilder;
+import com.editor.analysis.NetworkAnalyzer;
+import com.editor.analysis.PostSearcher;
 import com.editor.io.CommandLineOptions;
 import com.editor.io.FileManager;
+import com.editor.structures.graph.Post;
 import com.editor.structures.graph.SocialNetwork;
 import com.editor.structures.xml.XmlDocument;
 import com.editor.ui.GraphView;
@@ -14,16 +19,10 @@ import com.editor.xml.parser.ValidationResult;
 import com.editor.xml.parser.XmlParser;
 import com.editor.compression.Compressor;
 
-/**
- * Handles CLI execution for commands like verify, minify, format, json, etc.
- * Uses CommandLineOptions to decide which function to run.
- */
+
 public class CliRunner {
 
-    /**
-     * Entry point to run a CLI command with given arguments.
-     * @param args command-line arguments
-     */
+
     public static void run(String[] args) {
         // Parse CLI arguments
         CommandLineOptions opt = CommandLineOptions.parse(args);
@@ -58,6 +57,19 @@ public class CliRunner {
                 break;
             case "draw":
                 runDraw(opt);
+                break;
+            case "most_active":
+                runMostActive(opt);
+                break;
+            case "most_influencer":
+                runMostPopular(opt);
+                break;
+            case "mutual":
+                runMutual(opt);
+                break;
+            case "suggest":
+                runSuggest(opt);
+                break;
             default:
                 System.out.println("Unknown command: " + cmd);
         }
@@ -65,9 +77,7 @@ public class CliRunner {
 
     // ----------------------- COMMAND HANDLERS -----------------------
 
-    /**
-     * Validates XML file and optionally fixes errors.
-     */
+
     private static void runVerify(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
@@ -77,14 +87,21 @@ public class CliRunner {
 
             if (result.isValid()) {
                 System.out.println("XML is VALID.");
-            } else {
-                System.out.println("XML is INVALID!");
-                System.out.println("Errors found: " + result.getErrorCount());
-                System.out.println("Error lines: " + result.getErrorLines());
-
+            } 
+            else {
+                
+                System.out.println("XML is NOT valid. Found " + result.getErrorCount() + " error(s):");
+                int temp = result.getErrorCount()<10 ? result.getErrorCount():10;
+                for (int i = 0; i < temp ; i++) {
+                    System.out.println("  [Line " + result.getErrorLines().get(i) + "] " + result.getErrorMessages().get(i));
+                }
+                if(result.getErrorCount()>10)
+                    System.out.println("And more...");
                 // Fix XML if -f flag is used
                 if (opt.isFixEnabled() && opt.getOutputPath() != null) {
                     String fixed = validator.fix(xml);
+                    XmlFormatter formatter = new XmlFormatter();
+                    fixed = formatter.formatString(fixed);
                     FileManager.writeFile(opt.getOutputPath(), fixed);
                     System.out.println("XML has been FIXED and saved to: " + opt.getOutputPath());
                 }
@@ -95,9 +112,6 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Minifies XML and writes output to file.
-     */
     private static void runMinify(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
@@ -114,9 +128,9 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Formats XML nicely and writes output to file.
-     */
+    
+    //  Formats XML nicely and writes output to file.
+     
     private static void runFormat(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
@@ -132,9 +146,9 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Placeholder for future XML compression logic.
-     */
+    
+    //   XML compression logic.
+     
     private static void runCompress(CommandLineOptions opt) {
         // first check the type of file
         String path = opt.getInputPath();
@@ -163,9 +177,9 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Placeholder for future XML decompression logic.
-     */
+
+    // XML decompression logic.
+
     private static void runDecompress(CommandLineOptions opt) {
         // check the output type
         String path = opt.getOutputPath();
@@ -195,9 +209,7 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Converts XML to JSON and writes output.
-     */
+    // Converts XML to JSON and writes output.
     private static void runJson(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
@@ -214,18 +226,32 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Placeholder for search functionality.
-     */
+    //  Placeholder for search functionality.
+     
     private static void runSearch(CommandLineOptions opt) {
-        System.out.println("Search feature is Level 2 (post search).");
-        System.out.println("Word: " + opt.getWord());
-        System.out.println("Topic: " + opt.getTopic());
+        String xml = FileManager.readFile(opt.getInputPath());
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        GraphBuilder builder = new GraphBuilder();
+        SocialNetwork network = builder.build(doc);
+        PostSearcher searcher = new PostSearcher();
+        if (opt.getWord() != null) {
+            List<Post> posts = searcher.searchByWord(network, opt.getWord());
+            for (Post post : posts) {
+                System.out.println(post.getText());
+            }
+
+        } else {
+            List<Post> posts = searcher.searchByTopic(network, opt.getTopic());
+            for (Post post : posts) {
+                System.out.println(post.getText());
+            }
+        } 
+
     }
 
-    /**
-     * Prints XML content directly to console.
-     */
+    // Prints XML content directly to console.
+    
     private static void runPrint(CommandLineOptions opt) {
         try {
             String xml = FileManager.readFile(opt.getInputPath());
@@ -236,9 +262,8 @@ public class CliRunner {
         }
     }
 
-    /**
-     * Generates visual image for the network graph.
-     */
+    // Generates visual image for the network graph.
+     
     private static void runDraw(CommandLineOptions opt) {
         try {
             // 1. Read and Parse XML
@@ -263,4 +288,49 @@ public class CliRunner {
             e.printStackTrace();
         }
     }
+
+    private static void runSuggest(CommandLineOptions opt){
+        String xml = FileManager.readFile(opt.getInputPath());
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        GraphBuilder builder = new GraphBuilder();
+        SocialNetwork network = builder.build(doc);
+        NetworkAnalyzer analyzer = new NetworkAnalyzer();
+        List<Integer> suggestedUsers = analyzer.suggestUsersToFollowIds(network, opt.getSingleId());
+        System.out.println("Suggested users: ");
+        for (Integer user : suggestedUsers) {
+            System.out.println(user);
+        }
+    }
+    private static void runMostActive(CommandLineOptions opt){
+        String xml = FileManager.readFile(opt.getInputPath());
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        GraphBuilder builder = new GraphBuilder();
+        SocialNetwork network = builder.build(doc);
+        NetworkAnalyzer analyzer = new NetworkAnalyzer();
+        System.out.println("Most active user id: "+analyzer.mostActiveId(network));
+    }
+    private static void runMostPopular(CommandLineOptions opt){
+        String xml = FileManager.readFile(opt.getInputPath());
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        GraphBuilder builder = new GraphBuilder();
+        SocialNetwork network = builder.build(doc);
+        NetworkAnalyzer analyzer = new NetworkAnalyzer();
+        System.out.println("Most influencer user id: "+analyzer.mostInfluencerId(network));
+    }
+    private static void runMutual(CommandLineOptions opt){
+        String xml = FileManager.readFile(opt.getInputPath());
+        XmlParser parser = new XmlParser();
+        XmlDocument doc = parser.parse(xml);
+        GraphBuilder builder = new GraphBuilder();
+        SocialNetwork network = builder.build(doc);
+        NetworkAnalyzer analyzer = new NetworkAnalyzer();
+        List<Integer> mutualFollowers = analyzer.mutualFollowersIds(network, opt.getIds());
+        for (Integer follower : mutualFollowers) {
+            System.out.println("mutual connection: "+follower);
+        }
+    }
+
 }

@@ -2,7 +2,6 @@ package com.editor.xml.parser;
 
 import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
-import com.editor.xml.parser.ValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +23,12 @@ public class XmlValidator {
             result.setErrorCount(0);
             result.setErrorLines(new ArrayList<>());
             result.setErrorMessages(new ArrayList<>());
-            System.out.println("XML is valid.");
+            // System.out.println("XML is valid.");
         } else {
             result.setValid(false);
             result.setErrorCount(errors.size());
             result.setErrorLines(new ArrayList<>(errorLines));
             result.setErrorMessages(new ArrayList<>(errors));
-
-            // >>>>>>>>>> CHANGED: Better error display
-            System.out.println("XML is NOT valid. Found " + result.getErrorCount() + " error(s):");
-
-            for (int i = 0; i < errors.size(); i++) {
-                System.out.println("  [Line " + result.getErrorLines().get(i) + "] " + result.getErrorMessages().get(i));
-            }
         }
 
         return result;

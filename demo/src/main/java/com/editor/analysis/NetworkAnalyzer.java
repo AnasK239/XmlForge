@@ -7,8 +7,6 @@ import com.editor.structures.graph.UserNode;
 import com.editor.structures.graph.UserDirectory;
 
 public class NetworkAnalyzer {
-    // Role: Implement network queries.
-    // xml_editor format -i src/main/resources/samples/sample.xml -o output_file.xml
 
     public UserNode mostInfluencer(SocialNetwork network) {
         // user with the largest number of followers.
@@ -132,7 +130,8 @@ public class NetworkAnalyzer {
         if (followersOfFollowersIds.getList() != null) {
             for (Integer suggestedId : followersOfFollowersIds.getList()) {
                 UserNode suggestedUser = network.getUserDirectory().getById(suggestedId);
-                if (suggestedUser != null) {
+                if (suggestedUser != null && !myFollowingIds.contains(suggestedId) && !suggestedUsers.contains(suggestedUser)
+                        && suggestedUser.getId() != id){
                     suggestedUsers.add(suggestedUser);
                 }
             }
@@ -143,6 +142,7 @@ public class NetworkAnalyzer {
         List<UserNode> suggestedUsers = suggestUsersToFollow(network, id);
         List<Integer> suggestedUsersIds = new ArrayList<>();
         for (UserNode user : suggestedUsers) {
+
             suggestedUsersIds.add(user.getId());
         }
         return suggestedUsersIds;
