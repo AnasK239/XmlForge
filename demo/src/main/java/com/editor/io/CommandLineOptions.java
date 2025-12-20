@@ -18,13 +18,8 @@ public class CommandLineOptions {
     private String word;           // -w search word
     private String topic;          // -t search topic
 
-    private CommandLineOptions() {} // Private constructor to enforce use of parse()
+    private CommandLineOptions() {} 
 
-    /**
-     * Parses command-line arguments into a CommandLineOptions object.
-     * @param args command-line arguments
-     * @return populated CommandLineOptions instance
-     */
     public static CommandLineOptions parse(String[] args) {
 
         CommandLineOptions opt = new CommandLineOptions();
@@ -55,15 +50,17 @@ public class CommandLineOptions {
                     opt.fix = true;
                     break;
 
-                case "-id":        // SINGLE ID
+                case "-id":        
                     if (++i < args.length)
                         opt.singleId = Integer.parseInt(args[i]);
                     break;
 
-                case "-ids":       // MULTIPLE IDS
-                    // Collect all integers until next flag
-                    while (i + 1 < args.length && !args[i + 1].startsWith("-")) {
-                        idList.add(Integer.parseInt(args[++i]));
+                case "-ids":      
+                    if (++i < args.length) {
+                        String[] idStrings = args[i].split(",");
+                        for (String s : idStrings) {
+                            idList.add(Integer.parseInt(s.trim()));
+                        }
                     }
                     break;
 
@@ -87,7 +84,6 @@ public class CommandLineOptions {
         return opt;
     }
 
-    // -------------------------- GETTERS --------------------------
 
     public String getCommand() { return command; }
     public String getInputPath() { return inputPath; }

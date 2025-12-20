@@ -1,8 +1,5 @@
 package com.editor.structures.xml;
 
-import com.editor.xml.formatter.XmlFormatter;
-import com.editor.xml.formatter.XmlMinifier;
-
 public class XmlDocument {
     private XmlNode root;
 

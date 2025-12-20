@@ -3,7 +3,6 @@ package com.editor;
 import com.editor.compression.Compressor;
 import com.editor.io.FileManager;
 import com.editor.structures.xml.XmlDocument;
-import com.editor.xml.formatter.XmlMinifier;
 import com.editor.xml.parser.XmlParser;
 import com.editor.xml.converter.XmlToJson; 
 
@@ -33,7 +32,7 @@ public class TestCompressionMain {
     }
 
 
-    // method to get the diffrences between two strings and output the first 10 
+    // method to get the differences between two strings and output the first 10 
     public static String getDifferences(String str1, String str2) {
         StringBuilder diffs = new StringBuilder();
         int len = Math.min(str1.length(), str2.length());
