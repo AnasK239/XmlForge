@@ -48,7 +48,7 @@ public class XmlValidator {
             return fixed;
             }
 
-    // >>>>>>>>>> ADDED: New method to fix missing < or >
+    //  New method to fix missing < or >
     private String fixMissingBrackets(String s) {
         StringBuilder fixed = new StringBuilder();
         int i = 0;
@@ -277,7 +277,7 @@ public class XmlValidator {
         return tag.substring(1, i);
     }
 
-    // >>>>>>>>>> ADDED: Validate tag name
+    //  Validate tag name
     private boolean isValidTagName(String name) {
         if (name == null || name.isEmpty()) return false;
 
