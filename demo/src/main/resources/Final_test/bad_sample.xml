@@ -1,0 +1,254 @@
+<users>
+    <user>
+        <id>1
+        <name>James Anderson</id>
+        <posts>
+            <post>
+                <body>
+                    Just finished upgrading my home server rack. The cable management took forever, but the airflow is finally optimized.
+                
+                <topics>
+                    <topic>technology</topic>
+                    <topic>homelab</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>3</id></follower>
+            <follower><id>5</id></follower>
+            <follower><id>9</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>2</id>
+        <name>Emily Roberts</body>
+        <posts>
+            <post>
+                <body>
+                    The sourdough starter is finally bubbling! Does anyone have a good hydration ratio for a crustier loaf?
+                </body>
+                <topics>
+                    <topic>baking</topic>
+                    <topic>food</topic>
+                </top
+            </post>
+        </posts>
+        <followers>
+            <follower><id>6</id></follower>
+            <follower><id>12</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>3</id>
+        <name>Michael Stevens</name>
+        <posts>
+            <post>
+                <body>
+                    Hiking the Appalachian trail this weekend. The weather forecast looks clear, but I'm packing extra rain gear just in case.
+                </body>
+                <topics>
+                    <topic>hiking</topic>
+                    <topic>outdoors</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>1</id></follower>
+            <follower><id>4</id></follower>
+            <follower><id>7</id></follower>
+            <follower><id>10</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>4</id>
+        <name>Sarah Clark</name>
+        <posts>
+            <post>
+                <body>
+                    The new RPG release has incredible graphics, but the storyline feels a bit linear compared to the prequel.
+                </body>
+                <topics>
+                    <topic>gaming</topic>
+                    <topic>reviews</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>3</id></follower>
+            <follower><id>8</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>5</id>
+        <name>David Wilson</name>
+        <posts>
+            <post>
+                <body>
+                    Market volatility is high this week. It might be a good time to look into defensive stocks or just hold cash.
+                </body>
+                <topics>
+                    <topic>finance</topic>
+                    <topic>investing</topic>
+                </topics>
+            </post>
+            <post>
+                <body>
+                    Reading about the history of currency standards. It is fascinating how economies transitioned from gold to fiat.
+                </body>
+                <topics>
+                    <topic>economics</topic>
+                    <topic>history</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>1</id></follower>
+            <follower><id>11</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>6</id>
+        <name>Jessica Lewis</name>
+        <posts>
+            <post>
+                <body>
+                    My tomato plants are showing signs of early blight. Trying a copper fungicide solution today.
+                </body>
+                <topics>
+                    <topic>gardening</topic>
+                    <topic>plants</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>2</id></follower>
+            <follower><id>9</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>7</id>
+        <name>Robert Hall</name>
+        <posts>
+            <post>
+                <body>
+                    Just booked a flight to Tokyo! I have been saving for this trip for two years. Recommendations needed.
+                </body>
+                <topics>
+                    <topic>travel</topic>
+                    <topic>japan</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>3</id></follower>
+            <follower><id>8</id></follower>
+            <follower><id>12</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>8</id>
+        <name>Jennifer Allen</name>
+        <posts>
+            <post>
+                <body>
+                    Switching from acrylics to oil paints. The blending is so much smoother, but the drying time requires patience.
+                </body>
+                <topics>
+                    <topic>art</topic>
+                    <topic>painting</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>4</id></follower>
+            <follower><id>7</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>9</id>
+        <name>William Young</name>
+        <posts>
+            <post>
+                <body>
+                    Trying to debug this Python script. I keep getting an indentation error on line 42 despite everything looking aligned.
+                </body>
+                <topics>
+                    <topic>coding</topic>
+                    <topic>python</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>1</id></follower>
+            <follower><id>5</id></follower>
+            <follower><id>10</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>10</id>
+        <name>Linda King</name>
+        <posts>
+            <post>
+                <body>
+                    Adopting a rescue dog was the best decision. He is a mix of Lab and something else, very energetic!
+                </body>
+                <topics>
+                    <topic>pets</topic>
+                    <topic>dogs</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>2</id></follower>
+            <follower><id>12</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>11</id>
+        <name>Thomas Scott</name>
+        <posts>
+            <post>
+                <body>
+                    The narrative complexity of 'Dune' is unmatched. Herbert really understood how to build a universe.
+                </body>
+                <topics>
+                    <topic>books</topic>
+                    <topic>scifi</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>4</id></follower>
+            <follower><id>5</id></follower>
+        </followers>
+    </user>
+    <user>
+        <id>12</id>
+        <name>Barbara Green</name>
+        <posts>
+            <post>
+                <body>
+                    Running my first 10k tomorrow. I have been training for months, hoping to finish under an hour.
+                </body>
+                <topics>
+                    <topic>fitness</topic>
+                    <topic>running</topic>
+                </topics>
+            </post>
+            <post>
+                <body>
+                    Meal prepping for the week. Lots of chicken, rice, and broccoli. Boring but effective.
+                </body>
+                <topics>
+                    <topic>health</topic>
+                    <topic>nutrition</topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower><id>2</id></follower>
+            <follower><id>6</id></follower>
+            <follower><id>10</id></follower>
+        </followers>
+    </user>
+</users>
