@@ -112,8 +112,8 @@ public class XmlTokenizer {
 
             String content = input.substring(index).trim();
             reportError("Missing '>' before end of file for tag <" + content + "> ", startLine);
-
-            //  SKIP THE MALFORMED PART
+            line++;
+            //  SKIP THE MALFORMED PART SO IT DOES NOT BECOME TEXT
             index = length;
             column = startColumn + (length - (startColumn - 1));
 
