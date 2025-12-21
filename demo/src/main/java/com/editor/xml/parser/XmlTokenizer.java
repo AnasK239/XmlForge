@@ -85,8 +85,8 @@ public class XmlTokenizer {
 
             String content = input.substring(index, scan).trim();
             reportError("Missing '>' for tag <" + content + "> ", startLine);
-
-            //  SKIP THE MALFORMED PART SO IT DOES NOT BECOME TEXT
+            line++;
+            // *** SKIP THE MALFORMED PART SO IT DOES NOT BECOME TEXT ***
             index = scan;
             column = startColumn + (scan - (startColumn - 1));
 
@@ -138,7 +138,7 @@ public class XmlTokenizer {
             if (c == '<') {
                 //  Store error and fix it
                 reportError("Unexpected '<' inside tag — missing '>'", startLine);
-                
+
                 // Fix: pretend previous tag closed, start new tag
                 index++; // consume the '<'
                 column++;
@@ -153,13 +153,13 @@ public class XmlTokenizer {
                     }
                     return new XmlToken(XmlToken.Type.OPENING_TAG, partialContent, null, startLine, startColumn);
                 }
-                
+
                 // Continue parsing the new tag
                 return readTag();
             }
 
             text.append(c);
-            if (c == '\n') {
+            if (c == '\n'&&bufferedToken == null) {
                 line++;
                 column = 1;
             } else {
@@ -171,10 +171,11 @@ public class XmlTokenizer {
         if (index >= length) {
             //  Store error and auto-fix
             reportError("Missing '>' for tag starting at line " + startLine + ", column " + startColumn, startLine);
-            
+
             // Auto-fix: pretend '>' exists
             String content = text.toString().trim();
-            
+
+
             if (content.startsWith("/")) {
                 String tagName = content.substring(1).trim();
                 if (!isValidTagName(tagName)) {
@@ -242,7 +243,7 @@ public class XmlTokenizer {
                 String fixed = XmlValidator.fixTagName(tagName);
                 reportError("Invalid tag name '" + tagName + "' fixes to '" + fixed + "'", startLine);
                 tagName = fixed;
-            
+
             }
 
             return new XmlToken(XmlToken.Type.SELF_CLOSING_TAG, tagName, null, startLine, startColumn);
@@ -268,7 +269,7 @@ public class XmlTokenizer {
         }
     }
 
-    private XmlToken readText() {  //return tag token case 
+    private XmlToken readText() {  //return tag token case
 
         StringBuilder text = new StringBuilder();
         int startLine = line;
@@ -419,7 +420,7 @@ public class XmlTokenizer {
 
     public List<String> getSyntaxErrors() { return syntaxErrors; }
     public List<Integer> getSyntaxErrorLines() { return syntaxErrorLines; }
-    
+
     private boolean tagExistsInDocument(String name) {
 
         if (name == null || name.isEmpty()) return false;
@@ -431,7 +432,7 @@ public class XmlTokenizer {
                 input.contains("<" + n + "/") ||
                 input.contains("</" + n + ">");
     }
-    
+
     private void reportError(String message, int line) {
         syntaxErrors.add(message);
         syntaxErrorLines.add(line);

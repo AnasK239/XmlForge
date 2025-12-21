@@ -81,7 +81,7 @@ public class BpeCompressor {
                 pt.add(pair, token);
             }
         }
-        System.err.println("Decompression rules loaded: " + pt.getCount());
+        // System.err.println("Decompression rules loaded: " + pt.getCount());
         if (scanner.hasNextLine()) {
             String separator = scanner.nextLine().trim();
             if (!separator.equals("----")) {

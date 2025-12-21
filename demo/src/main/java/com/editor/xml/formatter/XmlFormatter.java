@@ -57,7 +57,7 @@ public class XmlFormatter {
     }
 
 
-    public String format(String xml)
+    public String formatString(String xml)
     {
         XmlParser parser = new XmlParser();
         XmlDocument doc2 = parser.parse(xml);

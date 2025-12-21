@@ -1,8 +1,5 @@
 package com.editor.structures.xml;
 
-import com.editor.xml.formatter.XmlFormatter;
-import com.editor.xml.formatter.XmlMinifier;
-
 public class XmlDocument {
     private XmlNode root;
 
@@ -18,16 +15,7 @@ public class XmlDocument {
         return root;
     }
 
-    public String toStringFormatted(String format)
-    {
-        if(format.equals("format")){
-            // call corresponding method to prettifiy.
-            
-        }
-        if(format.equals("mini")){
-            // Minifiy's the entire XML DOCUMENT
-            return XmlMinifier.toMinifiedString(root);
-        }
-        return "";
+    public void setRoot(XmlNode root) {
+        this.root = root;
     }
 }

@@ -50,6 +50,13 @@ public class XmlNode {
         this.children = new ArrayList<XmlNode>();
         this.line=line;
     }
+    public XmlNode() {
+        this.name = null;
+        this.textContent = null;
+        this.attributes = new ArrayList<XmlAttribute>();
+        this.children = new ArrayList<XmlNode>();
+        this.line=0;
+    }
 
     public int getLine() {
         return line;
@@ -68,4 +75,32 @@ public class XmlNode {
     public String getName(){ return this.name; }
     public List<XmlNode> getChildren(){ return this.children; }
 
+    public void setName(String name){ this.name = name; }
+    public void setTextContent(String textContent){ this.textContent = textContent; }
+
+    public String getNodeValue() {
+        for (XmlNode child : this.children) {
+            if (child.isTextNode()) {
+                return child.getTextContent().trim();
+            }
+        }
+        return null;
+    }
+    public XmlNode getChild(String childName) {
+        for (XmlNode child : this.children) {
+            if (childName.equals(child.getName())) {
+                return child;
+            }
+        }
+        return null;
+    }
+    public List<XmlNode> getChildren(String childName) {
+        List<XmlNode> matchingChildren = new ArrayList<>();
+        for (XmlNode child : this.children) {
+            if (childName.equals(child.getName())) {
+                matchingChildren.add(child);
+            }
+        }
+        return matchingChildren;
+    }
 }

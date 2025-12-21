@@ -1,11 +1,6 @@
 package com.editor;
 
-
 import com.editor.xml.parser.XmlParser;
-import com.editor.xml.parser.XmlToken;
-import com.editor.xml.parser.XmlTokenizer;
-import com.editor.xml.parser.XmlValidator;
-
 import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
 
@@ -14,11 +9,10 @@ public class TestMain {
     public static void main(String[] args) {
 
         String xml = """
-
 <users> 
         <user>
-        <id>1</id>
-        <name>Ahmed Ali</name>
+        <id>1</i>
+        <name>Ahmed Ali</nam>
         <posts>
             <post>
                 <body>
@@ -27,12 +21,12 @@ public class TestMain {
                 <topics>
                     <topic>
                         economy
-                    </topic>
+                    </topic
                     <topic>
                         finance
-                    </topic>   
-                </topics>
-            </post>
+                    </topic>
+                </topics
+            </postk>
             <post>
                 <body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -66,6 +60,7 @@ public class TestMain {
         } else {
             System.out.println("No parser errors.");
         }
+
 
         // =============================
         // PRINT PARSED XML TREE
@@ -110,11 +105,11 @@ public class TestMain {
         String spaces = " ".repeat(indent);
 
         if (node.getName() != null) {
-            System.out.println(spaces + "<" + node.getName() + ">");
+            System.out.println(spaces + "<" + node.getName() + ">" +node.getLine());
         }
 
         if (node.getTextContent() != null && !node.getTextContent().trim().isEmpty()) {
-            System.out.println(spaces + "  " + node.getTextContent().trim());
+            System.out.println(spaces + "  " + node.getTextContent().trim()+node.getLine());
         }
 
         for (XmlNode child : node.getChildren()) {
@@ -122,7 +117,7 @@ public class TestMain {
         }
 
         if (node.getName() != null) {
-            System.out.println(spaces + "</" + node.getName() + ">");
+            System.out.println(spaces + "</" + node.getName() + ">"+node.getLine());
         }
     }
 
