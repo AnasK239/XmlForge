@@ -86,7 +86,7 @@ public class XmlTokenizer {
             String content = input.substring(index, scan).trim();
             reportError("Missing '>' for tag <" + content + "> ", startLine);
 
-            // *** SKIP THE MALFORMED PART SO IT DOES NOT BECOME TEXT ***
+            //  SKIP THE MALFORMED PART SO IT DOES NOT BECOME TEXT
             index = scan;
             column = startColumn + (scan - (startColumn - 1));
 
@@ -113,7 +113,7 @@ public class XmlTokenizer {
             String content = input.substring(index).trim();
             reportError("Missing '>' before end of file for tag <" + content + "> ", startLine);
 
-            // *** SKIP THE MALFORMED PART ***
+            //  SKIP THE MALFORMED PART
             index = length;
             column = startColumn + (length - (startColumn - 1));
 
@@ -136,7 +136,7 @@ public class XmlTokenizer {
             char c = input.charAt(index);
 
             if (c == '<') {
-                // >>>>>>>>>> CHANGED: Store error and fix it
+                //  Store error and fix it
                 reportError("Unexpected '<' inside tag — missing '>'", startLine);
                 
                 // Fix: pretend previous tag closed, start new tag
@@ -169,7 +169,7 @@ public class XmlTokenizer {
         }
 
         if (index >= length) {
-            // >>>>>>>>>> CHANGED: Store error and auto-fix
+            //  Store error and auto-fix
             reportError("Missing '>' for tag starting at line " + startLine + ", column " + startColumn, startLine);
             
             // Auto-fix: pretend '>' exists
@@ -213,7 +213,7 @@ public class XmlTokenizer {
             String tagName = result.trim();
 
             if (result.trim().isEmpty()) {
-                // >>>>>>>>>> CHANGED: Store error and auto-fix
+                //  Store error and auto-fix
                 reportError("Empty tag name in closing tag", startLine);
                 return new XmlToken(XmlToken.Type.CLOSING_TAG, "tag", null, startLine, startColumn);
             }
@@ -233,7 +233,7 @@ public class XmlTokenizer {
             String tagName = result.trim();
 
             if (result.trim().isEmpty()) {
-                // >>>>>>>>>> CHANGED: Store error and auto-fix
+                //  Store error and auto-fix
                 reportError("Empty tag name in self-closing tag", startLine);
                 return new XmlToken(XmlToken.Type.SELF_CLOSING_TAG, "tag", null, startLine, startColumn);
             }
@@ -253,7 +253,7 @@ public class XmlTokenizer {
             String tagName = result.trim();
 
             if (result.trim().isEmpty()) {
-                // >>>>>>>>>> CHANGED: Store error and auto-fix
+                //  Store error and auto-fix
                 reportError("Empty tag name in opening tag", startLine);
                 return new XmlToken(XmlToken.Type.OPENING_TAG, "tag", null, startLine, startColumn);
             }
@@ -288,13 +288,8 @@ public class XmlTokenizer {
                 index++;
                 column++;
 
-                // ============================================================
-                // NEW CASE — Closing tag missing '<' that may be embedded in text
-                // Examples:
-                //    "1/id>"  -> should become text "1" and closing tag </id>
-                //    "/id>"   -> handled below (simple case)
-                //    "some/text/id>" -> becomes "some/text" + closing tag </id>
-                // ============================================================
+                // CASE — Closing tag missing '<' that may be embedded in text
+
                 // Find last slash in the backward word (handles "1/id" case)
                 int lastSlash = word.lastIndexOf('/');
                 if (lastSlash != -1 && lastSlash < word.length() - 1) {
@@ -318,16 +313,16 @@ public class XmlTokenizer {
 
                         text = new StringBuilder(keptBefore);
 
-// 1) Buffer the closing tag for next call
+                        // 1) Buffer the closing tag for next call
                         bufferedToken = new XmlToken(XmlToken.Type.CLOSING_TAG, tagName, null, startLine, startColumn);
 
-// 2) Return the TEXT token now
+                        // 2) Return the TEXT token now
                         String txt = text.toString().trim();
                         if (!txt.isEmpty()) {
                             return new XmlToken(XmlToken.Type.TEXT, null, txt, startLine, startColumn);
                         }
 
-// 3) If no text exists, return buffered closing tag now
+                        // 3) If no text exists, return buffered closing tag now
                         XmlToken t = bufferedToken;
                         bufferedToken = null;
                         return t;

@@ -177,7 +177,7 @@ public class XmlParser {
                         if (!stack.isEmpty()) stack.peek().addChild(missingClose);
                         else topLevelNodes.add(missingClose);
 
-                        tokenizer.putBack(token); // 🔥 Reprocess same closing tag
+                        tokenizer.putBack(token); //  Reprocess same closing tag
                         continue;
                     }
 
@@ -193,7 +193,7 @@ public class XmlParser {
                     if (!stack.isEmpty()) stack.peek().addChild(top);
                     else topLevelNodes.add(top);
 
-                    continue; // 🔥 consume mismatched closing tag
+                    continue; // consume mismatched closing tag
                 }
 
 
