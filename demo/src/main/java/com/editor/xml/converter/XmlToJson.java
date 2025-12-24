@@ -3,8 +3,6 @@ package com.editor.xml.converter;
 import com.editor.structures.xml.XmlDocument;
 import com.editor.structures.xml.XmlNode;
 import com.editor.util.JsonBuilder;
-
-
 public class XmlToJson {
 
     public String toJson(XmlDocument doc) {
